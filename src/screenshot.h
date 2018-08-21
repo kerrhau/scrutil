@@ -5,12 +5,14 @@
 
 class Screenshot {
  public:
-    Screenshot(unsigned short w, unsigned short h, unsigned short x, unsigned short y);
-    XImage operator() ();
- private:
-    unsigned short width, height, x, y;
-    Window win;
-    XImage *img;
+    Screenshot();
+    ~Screenshot();
+    XImage operator() (unsigned short w, unsigned short h, unsigned short x, unsigned short y);
+    unsigned short width, height;
     Display *display;
+    Window win;
+ private:
+    unsigned short x, y;
+    XImage *img;
     bool finished;
 };

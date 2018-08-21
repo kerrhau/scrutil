@@ -2,6 +2,8 @@
 #include <iostream>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <fstream>
+#include "screenshot.h"
 
 void png_write(png_structp png_ptr, png_bytep data, png_size_t length) {
     std::ostream *stream = (std::ostream*)png_get_io_ptr(png_ptr);
@@ -13,7 +15,10 @@ void png_flush(png_structp png_ptr) {
     stream->flush();
 }
 
-void write_png(std::ostream& stream, int width, int height, char *data) {
+void write_png(std::ostream& stream, char *data, Screenshot screenshot) {
+    int height = screenshot.height;
+    int width = screenshot.width;
+    
     png_structp png_ptr = nullptr;
     png_infop info_ptr = nullptr;
     png_bytep *rows = new png_bytep[height];

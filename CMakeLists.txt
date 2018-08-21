@@ -17,4 +17,4 @@ file(GLOB scrutil
   ${PROJECT_SOURCE_DIR}/src/*.cpp
   )
 
-add_executable(scrutil ${PROJECT_SOURCE_DIR}/src/main.cpp ${PROJECT_SOURCE_DIR}/src/screenshot.cpp ${PROJECT_SOURCE_DIR}/src/png_handler.cpp)
+add_executable(scrutil ${PROJECT_SOURCE_DIR}/src/main.cpp ${PROJECT_SOURCE_DIR}/src/screenshot.cpp ${PROJECT_SOURCE_DIR}/src/png_handler.cpp ${PROJECT_SOURCE_DIR}/src/selection.cpp)

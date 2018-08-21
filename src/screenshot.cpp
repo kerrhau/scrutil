@@ -1,20 +1,33 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <string>
+#include <iostream>
 #include "screenshot.h"
+#include "selection.h"
 
-Screenshot::Screenshot(unsigned short w, unsigned short h, unsigned short x, unsigned short y): width(w), height(h), x(x), y(y)
+Screenshot::Screenshot()
 {
     this->display = XOpenDisplay(nullptr);
     this->win = DefaultRootWindow(this->display);
     this->finished = false;
 }
 
-XImage Screenshot::operator() () {
+Screenshot::~Screenshot() {
+    XUngrabPointer(this->display, CurrentTime);
+    /*    if (finished)
+          XDestroyImage(this->img); */
+
+}
+XImage Screenshot::operator() (unsigned short w, unsigned short h, unsigned short xc, unsigned short yc) {
     if (finished == false)
         finished = true;
     else
         XDestroyImage(this->img);
 
-    return *(this->img = XGetImage(display, this->win, this->x, this->y, this->width, this->height, AllPlanes, ZPixmap));
+    this->x = xc;
+    this->y = yc;
+    this->width = w;
+    this->height = h;
+     
+    return *(this->img = XGetImage(display, win, this->x, this->y, this->width, this->height, AllPlanes, ZPixmap));
 }
